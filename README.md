@@ -10,17 +10,40 @@ npm install amwal-pay-react-native
 
 ## Usage
 
-```js
-import { multiply } from 'amwal-pay-react-native';
+```ts
+import { payWithAmwal } from 'amwal-pay-react-native';
 
-// ...
-
-const result = await multiply(3, 7);
+/**
+ * Sends a payment request with the merchant ID and amount using the payWithAmwal function.
+ * @param {string} _merchantId - The merchant ID.
+ * @param {string} _amount - The amount to be paid.
+ * @returns {Promise<{ [key: string]: string }>} - Returns a promise that resolves to an object containing the payment details.
+ */
+const result =  await payWithAmwal(_merchantId, _amount);
 ```
 
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+```ts
+ switch (result.status) {
+          case 'success':
+            setPaymentMessage(
+              'payment with transactionId' +
+                result.transactionId +
+                ' is success'
+            );
+            setPaymentStatus(result.status);
+            break;
+          case 'error':
+            setPaymentMessage(
+              'payment' + ' is failed with error ' + result.message
+            );
+            setPaymentStatus(result.status);
+            break;
+          case 'cancel':
+            setPaymentMessage('payment is canceled');
+            setPaymentStatus(result.status);
+            break;
+        }
+```
 
 ## License
 

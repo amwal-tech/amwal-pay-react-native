@@ -17,6 +17,9 @@ const AmwalPayReactNative = NativeModules.AmwalPayReactNative
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return AmwalPayReactNative.multiply(a, b);
+export function payWithAmwal(
+  merchantId: string,
+  amount: string
+): Promise<{ [key: string]: string }> {
+  return AmwalPayReactNative.payWithAmwal(merchantId, amount);
 }
